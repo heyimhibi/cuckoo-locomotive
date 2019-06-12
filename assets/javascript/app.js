@@ -17,16 +17,6 @@ var database = firebase.database();
 
 $("#submitButton").on("click", userSubmit);
 
-var count = 0;
-
-ref.on("child_added", function(snap) {
-  count++;
-  console.log("added:", snap.key);
-});
-
-// database.on("child_add", function (childSnapshot) {
-//     console.log(childSnapshot.val());
-// });
 //==============================================================//
 
 function userSubmit(event) {
@@ -38,6 +28,14 @@ function userSubmit(event) {
         trainTime: $("#trainTime").val().trim(),
         frequency: $("#trainFrequency").val().trim()
     }
+    $("#add-train").on("click", function() {
+        event.preventDefault();
+        // Storing and receiving new train data
+        trainName = $("#trainName").val().trim();
+        destination = $("#destination").val().trim();
+        trainTime = $("#trainTime").val().trim();
+        frequency = $("#trainFrequency").val().trim();
+    });
 
     if (
         newTrip.trainName === "" ||
@@ -49,6 +47,7 @@ function userSubmit(event) {
     } else{
         database.ref().push(newTrip);
         $("#trainName, #destination, #trainTime, #frequency").val("");
-    }
+    };
+
 
 }
