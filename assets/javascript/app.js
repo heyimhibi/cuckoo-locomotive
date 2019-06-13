@@ -11,43 +11,33 @@ var config = {
 firebase.initializeApp(config);
 
 // Create a variable to reference the database.
-var database = firebase.database();
+var trainData = firebase.database();
 
 //==============================================================//
 
-$("#submitButton").on("click", userSubmit);
-
-//==============================================================//
-
-function userSubmit(event) {
+$("#submitButton").on("click", function userSubmit(event) {
     event.preventDefault();
-    console.log("click");
+    console.log ("click");
     var newTrip = {
         trainName: $("#trainName").val().trim(),
         destination: $("#destination").val().trim(),
         trainTime: $("#trainTime").val().trim(),
-        frequency: $("#trainFrequency").val().trim()
-    }
-    $("#add-train").on("click", function() {
-        event.preventDefault();
-        // Storing and receiving new train data
-        trainName = $("#trainName").val().trim();
-        destination = $("#destination").val().trim();
-        trainTime = $("#trainTime").val().trim();
-        frequency = $("#trainFrequency").val().trim();
-    });
+        frequency: $("#trainFrequency").val().trim(),
+        dateAdded: firebase.database.ServerValue.TIMESTAMP
+    };
 
     if (
         newTrip.trainName === "" ||
         newTrip.destination === "" ||
         newTrip.trainTime === "" ||
         newTrip.frequency === ""
+        
     ){
         alert("Please complete all the fields!");
     } else{
-        database.ref().push(newTrip);
-        $("#trainName, #destination, #trainTime, #frequency").val("");
-    };
+        trainData.ref().push(newTrip);
+        $("#trainName, #destination, #trainTime, #frequency", "#dateAdded").val("");
+        console.log(newTrip);
+    }
 
-
-}
+});
