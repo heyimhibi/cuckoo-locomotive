@@ -28,15 +28,6 @@ function userSubmit(event) {
         trainTime: $("#trainTime").val().trim(),
         frequency: $("#trainFrequency").val().trim()
     }
-    $("#add-train").on("click", function() {
-        event.preventDefault();
-        // Storing and receiving new train data
-        trainName = $("#trainName").val().trim();
-        destination = $("#destination").val().trim();
-        trainTime = $("#trainTime").val().trim();
-        frequency = $("#trainFrequency").val().trim();
-    });
-
     if (
         newTrip.trainName === "" ||
         newTrip.destination === "" ||
@@ -45,9 +36,25 @@ function userSubmit(event) {
     ){
         alert("Please complete all the fields!");
     } else{
+      
+        // Retrieve new posts as they are added to the database
+        // database.on("child_added", function(snapshot, prevChildKey) {
+        //     var newPost = snapshot.val();
+        // });
+
+        $("#trainNameInput").text(newTrip.trainName);
+        $("#destinationInput").text(newTrip.destination);
+        $("frequencyInput").text(newTrip.frequency);
+        $("nextArrival").text();
+        $("minAway").text();
+        
+
+
         database.ref().push(newTrip);
-        $("#trainName, #destination, #trainTime, #frequency").val("");
+        $("#trainName, #destination, #trainTime, #trainFrequency").val("");
     };
+
+
 
 
 }
