@@ -52,10 +52,10 @@ trainData.ref().on("child_added", function(childSnapshot) {
    
 
     var firstTimeConverted = moment(trainTime, "HH:mm").subtract(1, "years");
-    console.log(firstTimeConverted);
+    console.log("first train time" + firstTimeConverted);
 
     var currentTime = moment();
-    console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+    console.log("CURRENT TIME: " + moment(currentTime).format("hh:mmA"));
 
     var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
     console.log("DIFFERENCE IN TIME: " + diffTime);
@@ -69,6 +69,7 @@ trainData.ref().on("child_added", function(childSnapshot) {
 
     // Next Train
     var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+    var nextTrainDisplay = nextTrain.format("hh:mm");
     console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
 
 
@@ -78,7 +79,7 @@ trainData.ref().on("child_added", function(childSnapshot) {
         $("<td>").text(trainName),
         $("<td>").text(destination),
         $("<td>").text(frequency),
-        $("<td>").text(nextTrain),
+        $("<td>").text(nextTrainDisplay),
         $("<td>").text(tMinutesTillTrain),
 
       );
